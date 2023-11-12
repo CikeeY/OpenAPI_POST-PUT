@@ -1,0 +1,91 @@
+openapi: 3.0.3
+info:
+  title: Сервис для комментариев
+  description: Описать REST API с помощью OpenAPI, где есть POST и PUT запросы
+  version: 1.0.1
+servers:
+  - url: https://localhost:8080/api/v1
+    description: Server
+tags:
+  - name: Comment
+    description: Передача и изменение комментариев
+paths:
+  /comment:
+    post:
+      tags:
+        - Comment
+      summary: Add a new comment
+      description: Add a new comment
+      operationId: addComment
+      requestBody:
+        description: Create a new comment
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Comment'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '405':
+          description: Invalid input
+    put:
+      tags:
+        - Comment
+      summary: Update an existing comment
+      description: Update an existing comment by Id
+      operationId: updateComment
+      requestBody:
+        description: Update an existent comment by Id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Comment'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Comment not found
+        '405':
+          description: Validation exception
+components:
+  schemas:
+    Comment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        comment:
+          type: string
+          example: Hello world
